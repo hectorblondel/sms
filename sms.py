@@ -39,7 +39,8 @@ while True :
                 pass
             with open('templates/alba.txt','r') as f :
                 chn = f.read().format(debut,fin,date,code)
-            headers = {'x-api-key': 'qOOaBeK0IbkeNUiE1MPQR0RBDwjzLYoqYmUjhdx9_I4RdPXr8ZbD6es226jIH-If','Content-Type': 'application/json'}
+            
+            headers = {'x-api-key': KEY,'Content-Type': 'application/json'}
             json_data = {'from': gateway,'to': '+33648069191','content': chn[:-1]}
             print("envoi de message...")
             response = post('https://api.httpsms.com/v1/messages/send', headers=headers, json=json_data)
