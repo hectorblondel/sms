@@ -15,7 +15,8 @@ while True :
     tt = time() 
     if tt - t > 10. :
         t = tt
-        dico = get("https://api.httpsms.com/v1/messages?owner={}&contact=%2B33648069191&limit=1".format(gateway_formated),headers={'accept': 'application/json', 'x-api-Key':'qOOaBeK0IbkeNUiE1MPQR0RBDwjzLYoqYmUjhdx9_I4RdPXr8ZbD6es226jIH-If'}).json() 
+        dico = get("https://api.httpsms.com/v1/messages?owner={}&contact=%2B33648069191&limit=1".format(gateway_formated),\
+            headers={'accept': 'application/json', 'x-api-Key':KEY}).json()
         uuid = dico["data"][0]["id"]
         if dico["data"][0]["content"] == "ALBA" and (uuid not in vus_uuid) :
             vus_uuid.append(uuid)
