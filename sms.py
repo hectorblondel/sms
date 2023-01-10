@@ -17,7 +17,7 @@ vus_uuid = []
 t = time()
 while True :
     tt = time() 
-    if tt - t > 10. :
+    if tt - t > 5. :
         t = tt
         for s in senders :
             resp = get("https://api.httpsms.com/v1/messages?owner={}&contact={}&limit=1".format(gateway_formated,"%2B"+s[1:]),\
