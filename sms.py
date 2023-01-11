@@ -7,7 +7,7 @@ from datetime import date,datetime
 from key import KEY
 
 gateway = "+33648069191"
-senders = ["+33648069191","+33767861595","+33652105696"]
+senders = ["+33648069191","+33767861595","+33652105696","+33782654206"]
 
 gateway_formated = "%2B"+gateway[1:]
 
@@ -46,7 +46,7 @@ while True :
                         fin = new_heures + rawdate[13:16]
                         date = rawdate[8:10]+"."+rawdate[5:7]+"."+rawdate[2:4] 
                         #print(debut,fin,date)
-                        if dico['data'][0]['content'] == "ALBA":
+                        if dico['data'][0]['content'].lower().rstrip() == "alba":
                             pass
                         with open('templates/alba.txt','r') as f :
                             chn = f.read().format(debut,fin,date,code)
