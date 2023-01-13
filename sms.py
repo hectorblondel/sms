@@ -24,8 +24,8 @@ while True :
                 headers={'accept': 'application/json', 'x-api-Key':KEY})
             if resp.status_code == 200 :
                 dico = resp.json()
-                print("dico")
-                print(dico)
+                #print("dico")
+                #print(dico)
                 if len(dico["data"]) > 0 :
                     uuid = dico["data"][0]["id"]
                     if dico["data"][0]["content"] == "ALBA" and (uuid not in vus_uuid) :
@@ -53,5 +53,5 @@ while True :
                         
                         headers = {'x-api-key': KEY,'Content-Type': 'application/json'}
                         json_data = {'from': gateway,'to': s,'content': chn[:-1]}
-                        print("envoi de message...")
+                        print("envoi de message... à "+s)
                         response = post('https://api.httpsms.com/v1/messages/send', headers=headers, json=json_data)
