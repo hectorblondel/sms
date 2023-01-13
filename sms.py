@@ -1,15 +1,19 @@
 import os
 from requests.api import get,post
-from json import loads,dumps
+import json
 from time import time
 from random import randrange
 from datetime import date,datetime
 from key import KEY
 
 gateway = "+33648069191"
-senders = ["+33648069191","+33767861595","+33652105696","+33782654206","+33695623428","+33685986005"]
-
 gateway_formated = "%2B"+gateway[1:]
+
+with open("senders.json",'r') as f:
+    senders = json.load(f)
+
+
+possibles = ["orsay","alba","saclay"]
 
 
 vus_uuid = []
@@ -28,7 +32,8 @@ while True :
                 #print(dico)
                 if len(dico["data"]) > 0 :
                     uuid = dico["data"][0]["id"]
-                    if dico["data"][0]["content"] == "ALBA" and (uuid not in vus_uuid) :
+                    ticket_type = dico["data"][0]["content"].lower().rstrip()
+                    if ticket_type in possibles and (uuid not in vus_uuid) :
                         vus_uuid.append(uuid)
                         #print(dico['data'][0]['content'])
                         l = [str(randrange(10)) for _ in range(12)]
@@ -48,10 +53,10 @@ while True :
                         #print(debut,fin,date)
                         if dico['data'][0]['content'].lower().rstrip() == "alba":
                             pass
-                        with open('templates/alba.txt','r') as f :
+                        with open('templates/'+ticket_type+'.txt','r') as f :
                             chn = f.read().format(debut,fin,date,code)
                         
                         headers = {'x-api-key': KEY,'Content-Type': 'application/json'}
                         json_data = {'from': gateway,'to': s,'content': chn[:-1]}
-                        print("envoi de message... à "+s)
+                        print("envoi de message de type "+ ticket_type +" à "+s)
                         response = post('https://api.httpsms.com/v1/messages/send', headers=headers, json=json_data)
